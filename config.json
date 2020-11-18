@@ -1,0 +1,39 @@
+{
+  "TargetOwner": "",
+  "TargetRepo": "",
+  "TargetGH": false,
+  "TargetAPI": "https://johnvansickle.com/ffmpeg/release-readme.txt",
+  "TargetDLink": "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz",
+  "ArchiverOwner": "One-Studio",
+  "ArchiverRepo": "FFmpeg-Linux-amd64",
+  "ArchiverGH": true,
+  "ArchiverAPI": "",
+  "ArchiverVersion": "v1.2.0 custom-ffmpeg-linux",
+  "Version": "4.3.1",
+  "VersionList": [
+    "4.3.1"
+  ],
+  "CheckTime": "2020-11-18T15:32Z",
+  "Format": 1,
+  "CompRatio": 3,
+  "DistPath": "dist",
+  "Filter": [
+    ".zip",
+    ".exe"
+  ],
+  "DeleteFilter": [
+    {
+      "Index": "ffmpeg",
+      "List": [
+        "ffprobe",
+        "manpages"
+      ]
+    }
+  ],
+  "RenameFilter": [
+    {
+      "Index": "ffmpeg",
+      "Name": "ffmpeg-linux-amd64.7z"
+    }
+  ]
+}
