@@ -4,8 +4,8 @@ on:
   # Push激活，去掉#开启
   push:
   # 定时激活
-  #schedule:
-  #  - cron:  '30 * * * *'
+  schedule:
+    - cron:  '* 2 * * *'
       # 每30分钟：'30 * * * *'
       # 每1小时：'* 1 * * *'
       # ！最少5分钟
@@ -18,6 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      # 运行工具
+      - name: Run ReleaseDelivr
+        run: |
+          ls
+          chmod 777 ReleaseDelivr
+          ./ReleaseDelivr
+          ls
 
       # 读取最新版本号
       - name: Read target version
@@ -36,6 +44,26 @@ jobs:
       - run: |
           echo "tVer=${{ steps.tVer.outputs.content }}" >> $GITHUB_ENV
           echo "cVer=${{ steps.cVer.outputs.content }}" >> $GITHUB_ENV
+
+      - name: push
+        if: env.cVer != env.tVer
+        uses: github-actions-x/commit@v2.6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: master
+          commit-message: 'Automatically pushed by GitHub Actions'
+          rebase: 'true' # pull abd rebase before commit
+          force-add: 'true'
+          # ！请替换
+          name: Purple
+          email: 438518244@qq.com
+
+      # 等待10s 以防先发布再push
+      - name: Sleep for 10 seconds
+        if: env.cVer != env.tVer
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
 
       # 读取下载地址
       - name: Read DownloadLink
